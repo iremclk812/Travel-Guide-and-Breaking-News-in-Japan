@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}Breaking News{% endblock %}
+
+{% block content %}
+
+    <h1 style="color: darkred;text-align: center ">DAILY NEWS IN JAPAN</h1>
+
+
+
+<div class="container mt-4">
+    {% for item in news %}
+    <div class="card mb-3">
+        <div class="card-body">
+            <h2 class="card-title">{{ item.title }}</h2>
+            <p class="card-text">{{ item.description }}</p>
+            {% if item.image_url %}
+            <img src="{{ item.image_url }}" alt="{{ item.title }}" class="img-fluid">
+            {% endif %}
+         <p class="text-muted" style="font-size: 0.9rem;">Released Time: {{ item.created_at|date:"d M Y, H:i" }}</p>
+
+        </div>
+    </div>
+    {% empty %}
+    <p style="text-align: center; color: gray;">No news added yet.</p>
+
+
+    {% endfor %}
+</div>
+
+{% endblock %}
+

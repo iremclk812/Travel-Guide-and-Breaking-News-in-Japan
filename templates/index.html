@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<header>
+    <div class="container text-center">
+        <h1>Welcome to Japan</h1>
+        <p>Discover the Land of the Rising Sun: A Perfect Blend of Tradition and Modernity</p>
+    </div>
+</header>
+<section class="container mt-5">
+    <h2>Why Visit Japan?</h2>
+    <p>
+        Japan is a country that offers countless experiences: from ancient temples and tranquil gardens to cutting-edge technology and vibrant cityscapes. Whether you're an adventurer, a foodie, or someone who appreciates culture, Japan has something extraordinary for everyone.
+    </p>
+</section>
+
+<section class="container mt-5">
+    <h2>Top Reasons to Visit Japan</h2>
+    <ul>
+        <li><strong>Rich Culture:</strong> Experience traditional tea ceremonies, samurai history, and sumo wrestling.</li>
+        <li><strong>Delicious Cuisine:</strong> Indulge in sushi, ramen, tempura, and more!</li>
+        <li><strong>Breathtaking Nature:</strong> Enjoy cherry blossoms, Mount Fuji, and serene bamboo forests.</li>
+        <li><strong>Advanced Technology:</strong> Explore futuristic cities like Tokyo and cutting-edge robotics.</li>
+        <li><strong>World-Class Hospitality:</strong> Discover Japan's renowned "omotenashi" (hospitality).</li>
+    </ul>
+</section>
+
+<section class="container mt-5">
+    <h2>Must-Visit Destinations</h2>
+    <div class="row">
+        {% for destination in destinations %}
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                {% if destination.image_url %}
+                <img src="{{ destination.image_url }}" class="card-img-top" alt="{{ destination.title }}">
+                {% endif %}
+                <div class="card-body">
+                    <h5 class="card-title">{{ destination.title }}</h5>
+                    <p class="card-text">{{ destination.description }}</p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

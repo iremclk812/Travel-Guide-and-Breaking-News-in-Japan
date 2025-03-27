@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Destination</title>
+    <style>
+        /* Genel tasarım */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        form {
+            max-width: 600px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        form p {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #555;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+        button {
+            display: block;
+            width: 100%;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: #007bff;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        .back-link:hover {
+            color: #0056b3;
+        }
+        .error-list {
+            color: #dc3545;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+        .error-list li {
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Edit Destination: {{ destination.title }}</h1>
+
+    <!-- Eğer formda hatalar varsa göster -->
+    {% if form.errors %}
+        <ul class="error-list">
+            {% for field in form %}
+                {% for error in field.errors %}
+                    <li>{{ field.label }}: {{ error }}</li>
+                {% endfor %}
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    <!-- Düzenleme Formu -->
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}  <!-- Form alanlarını otomatik olarak oluşturur -->
+        <button type="submit">Save Changes</button>
+    </form>
+
+    <!-- Listeye geri dönme bağlantısı -->
+    <a href="{% url 'destination-list' %}" class="back-link">Back to Destination List</a>
+</body>
+</html>
