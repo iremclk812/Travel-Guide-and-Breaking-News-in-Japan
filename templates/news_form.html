@@ -1,30 +1,47 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> Japan Today</title>
-    <style>
-        form {
-            color: cornflowerblue;
-            max-width: 600px;
-            margin: 0 auto;
-            background: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        h1{
+    <title>Create News</title>
+    <script>
+        async function createNews(event) {
+            event.preventDefault();
 
+            // Form verisi toplama
+            const title = document.querySelector("#title").value;
+            const description = document.querySelector("#description").value;
+            const image_url = document.querySelector("#image_url").value;
+
+            // API'ye POST isteği gönder
+            const response = await fetch('/api/news/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    title: title,
+                    description: description,
+                    image_url: image_url,
+                }),
+            });
+
+            if (response.ok) {
+                alert("News created successfully!");
+            } else {
+                alert("Failed to create news.");
+            }
         }
-    </style>
+    </script>
 </head>
 <body>
-    <h1>Add a New in Japan Today</h1>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Save</button>
-    </form>
+<h1>Create News</h1>
+<form onsubmit="createNews(event)">
+    <label>Title:</label>
+    <input type="text" id="title" required><br>
+    <label>Description:</label>
+    <textarea id="description" required></textarea><br>
+    <label>Image URL:</label>
+    <input type="url" id="image_url"><br>
+    <button type="submit">Create</button>
+</form>
 </body>
 </html>
